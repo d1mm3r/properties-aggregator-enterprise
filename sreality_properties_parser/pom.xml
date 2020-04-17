@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sarsx</groupId>
+    <artifactId>sreality-properties-parser</artifactId>
+    <version>1.0.1</version>
+    <packaging>bundle</packaging>
+    <name>sreality-properties-parser</name>
+
+    <properties>
+        <CApp.type>lib/synapse/mediator</CApp.type>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.axis2.wso2</groupId>
+            <artifactId>axis2</artifactId>
+            <version>1.6.1.wso2v20</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.synapse</groupId>
+            <artifactId>synapse-core</artifactId>
+            <version>2.1.7-wso2v111</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit-osgi</artifactId>
+            <version>2.39.0</version>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+            <id>wso2-nexus</id>
+            <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+            <id>wso2-nexus</id>
+            <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.4.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>SrealityParser</Bundle-SymbolicName>
+                        <Bundle-Name>SrealityParser</Bundle-Name>
+                        <Export-Package>com.sarsx.srealityparser</Export-Package>
+                        <DynamicImport-Package>*</DynamicImport-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <buildcommands>
+                        <buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+                    </buildcommands>
+                    <projectnatures>
+                        <projectnature>org.wso2.developerstudio.eclipse.artifact.mediator.project.nature</projectnature>
+                        <projectnature>org.eclipse.jdt.core.javanature</projectnature>
+                    </projectnatures>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="properties_aggregator_api" groupId="com.sarsx.properties_aggregator_config.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/properties_aggregator_api.xml</file>
+    </artifact>
+    <artifact name="properties_aggregator_sreality_endpoint" groupId="com.sarsx.properties_aggregator_config.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/properties_aggregator_sreality_endpoint.xml</file>
+    </artifact>
+    <artifact name="properties_aggregator_sreality_raw_jms_endpoint" groupId="com.sarsx.properties_aggregator_config.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/properties_aggregator_sreality_raw_jms_endpoint.xml</file>
+    </artifact>
+    <artifact name="properties_aggregator_sreality_single_jms_endpoint" groupId="com.sarsx.properties_aggregator_config.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/properties_aggregator_sreality_single_jms_endpoint.xml</file>
+    </artifact>
+    <artifact name="properties_aggregator_sreality_raw_jms_service" groupId="com.sarsx.properties_aggregator_config.proxy-service" version="1.0.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/proxy-services/properties_aggregator_sreality_raw_jms_service.xml</file>
+    </artifact>
+    <artifact name="properties_aggregator_sreality_single_jms_service" groupId="com.sarsx.properties_aggregator_config.proxy-service" version="1.0.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/proxy-services/properties_aggregator_sreality_single_jms_service.xml</file>
+    </artifact>
+</artifacts>

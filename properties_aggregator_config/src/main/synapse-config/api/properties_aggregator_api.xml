@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/api/properties" name="properties_aggregator_api" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST">
+        <inSequence>
+            <property expression="json-eval($.area.min)" name="uri.var.minsq" scope="default" type="STRING"/>
+            <property expression="json-eval($.area.max)" name="uri.var.maxsq" scope="default" type="STRING"/>
+            <property expression="json-eval($.price.min)" name="uri.var.minprice" scope="default" type="STRING"/>
+            <property expression="json-eval($.price.max)" name="uri.var.maxprice" scope="default" type="STRING"/>
+            <class name="com.sarsx.srealityparser.PropertyCountMediator"/>
+            <property expression="get-property('srealityPropertyCount')" name="actualPropertyCount" scope="default" type="STRING"/>
+            <dblookup>
+                <connection>
+                    <pool>
+                        <dsName>jdbc/PropertyDatasource</dsName>
+                    </pool>
+                </connection>
+                <statement>
+                    <sql><![CDATA[SELECT COUNT(*) FROM sreality]]></sql>
+                    <result column="count" name="count"/>
+                </statement>
+            </dblookup>
+            <property expression="get-property('count')" name="storedPropertyCount" scope="default" type="STRING"/>
+            <filter regex="true" source="boolean(get-property('actualPropertyCount') > get-property('storedPropertyCount'))">
+                <then>
+                    <class name="com.sarsx.srealityparser.PropertyUrlMediator"/>
+                    <property expression="get-property('srealityPropertyUrlList')" name="srealityPropertyUrl" scope="default" type="STRING"/>
+                    <payloadFactory media-type="xml">
+                        <format>
+                            <payload>$1</payload>
+                        </format>
+                        <args>
+                            <arg evaluator="xml" expression="get-property('srealityPropertyUrl')"/>
+                        </args>
+                    </payloadFactory>
+                    <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+                    <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+                    <send>
+                        <endpoint key="RealtyAggregatorMessagingEndpoint"/>
+                    </send>
+                </then>
+                <else>
+                    <log level="custom">
+                        <property name="responseStatus" value="No new properties to process"/>
+                    </log>
+                </else>
+            </filter>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+</api>

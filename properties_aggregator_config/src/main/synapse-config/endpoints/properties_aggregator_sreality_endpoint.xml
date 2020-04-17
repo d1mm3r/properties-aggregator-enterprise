@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint name="properties_aggregator_sreality_endpoint" xmlns="http://ws.apache.org/ns/synapse">
+    <http method="get" uri-template="https://www.sreality.cz/en/search/to-rent/apartments/praha?disposition=1%2Bkt,1%2B1,2%2Bkt,2%2B1&amp;published=today&amp;min-sq-meters=35&amp;max-sq-meters=100&amp;min-price=0&amp;max-price=15000">
+        <suspendOnFailure>
+            <initialDuration>-1</initialDuration>
+            <progressionFactor>1.0</progressionFactor>
+        </suspendOnFailure>
+        <markForSuspension>
+            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+        </markForSuspension>
+    </http>
+</endpoint>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint name="properties_aggregator_sreality_single_jms_endpoint" xmlns="http://ws.apache.org/ns/synapse">
+    <address uri="rabbitmq:/?rabbitmq.server.host.name=squid.rmq.cloudamqp.com&amp;rabbitmq.server.virtual.host=jkwwhexq&amp;rabbitmq.server.port=5672&amp;rabbitmq.server.user.name=jkwwhexq&amp;rabbitmq.server.password=4H94uzFA2tviEA8s-JvG7I_fjIt5pr0-&amp;rabbitmq.queue.name=sreality_property_single_queue">
+        <suspendOnFailure>
+            <initialDuration>-1</initialDuration>
+            <progressionFactor>1.0</progressionFactor>
+        </suspendOnFailure>
+        <markForSuspension>
+            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+        </markForSuspension>
+    </address>
+</endpoint>

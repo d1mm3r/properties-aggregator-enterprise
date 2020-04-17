@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="properties_aggregator_sreality_raw_jms_service" startOnLoad="true" transports="rabbitmq" xmlns="http://ws.apache.org/ns/synapse">
+    <target>
+        <inSequence>
+            <iterate expression="$env/*[local-name()='Body']/*[local-name()='payload']/*[local-name()='srealityPropertyUrl']/*">
+                <target>
+                    <sequence>
+                        <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
+                        <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
+                        <send>
+                            <endpoint key="SrealitySingleMessagingEndpoint"/>
+                        </send>
+                    </sequence>
+                </target>
+            </iterate>
+        </inSequence>
+        <outSequence/>
+        <faultSequence>
+            <property name="SET_ROLLBACK_ONLY" scope="axis2" type="STRING" value="true"/>
+        </faultSequence>
+    </target>
+    <parameter name="rabbitmq.connection.factory">AMQPConnectionFactory</parameter>
+    <parameter name="rabbitmq.queue.name">sreality_property_list_queue</parameter>
+</proxy>

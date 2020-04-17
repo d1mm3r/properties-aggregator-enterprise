@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="properties_aggregator_sreality_single_jms_service" startOnLoad="true" transports="rabbitmq" xmlns="http://ws.apache.org/ns/synapse">
+    <target>
+        <inSequence>
+            <property expression="$env/*[local-name()='Body']/*" name="url" scope="default" type="STRING"/>
+            <dblookup>
+                <connection>
+                    <pool>
+                        <dsName>jdbc/PropertyDatasource</dsName>
+                    </pool>
+                </connection>
+                <statement>
+                    <sql><![CDATA[SELECT CASE WHEN EXISTS (SELECT * FROM sreality WHERE url = ?) THEN CAST(1 AS INTEGER) ELSE CAST(0 AS INTEGER) END]]></sql>
+                    <parameter expression="get-property('url')" type="VARCHAR"/>
+                    <result column="case" name="isPropertyFound"/>
+                </statement>
+            </dblookup>
+            <filter regex="0" source="get-property('isPropertyFound')">
+                <then>
+                    <dbreport>
+                        <connection>
+                            <pool>
+                                <dsName>jdbc/PropertyDatasource</dsName>
+                            </pool>
+                        </connection>
+                        <statement>
+                            <sql><![CDATA[INSERT INTO sreality (property_id, url) VALUES (?, ?)]]></sql>
+                            <parameter type="BIGINT" value="666"/>
+                            <parameter expression="get-property('url')" type="VARCHAR"/>
+                        </statement>
+                    </dbreport>
+                </then>
+                <else/>
+            </filter>
+        </inSequence>
+        <outSequence/>
+        <faultSequence>
+            <property name="SET_ROLLBACK_ONLY" scope="axis2" type="STRING" value="true"/>
+        </faultSequence>
+    </target>
+    <parameter name="rabbitmq.connection.factory">AMQPConnectionFactory</parameter>
+    <parameter name="rabbitmq.queue.name">sreality_property_single_queue</parameter>
+</proxy>
