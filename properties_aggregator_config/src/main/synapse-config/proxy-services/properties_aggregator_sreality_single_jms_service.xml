@@ -17,6 +17,9 @@
             </dblookup>
             <filter regex="0" source="get-property('isPropertyFound')">
                 <then>
+                    <script language="js"><![CDATA[var url = mc.getProperty("url");
+                    	var id = url.substr(url.lastIndexOf("/") + 1);
+                    	mc.setProperty("propertyId", id);]]></script>
                     <dbreport>
                         <connection>
                             <pool>
@@ -25,7 +28,7 @@
                         </connection>
                         <statement>
                             <sql><![CDATA[INSERT INTO sreality (property_id, url) VALUES (?, ?)]]></sql>
-                            <parameter type="BIGINT" value="666"/>
+                            <parameter expression="get-property('propertyId')" type="BIGINT"/>
                             <parameter expression="get-property('url')" type="VARCHAR"/>
                         </statement>
                     </dbreport>

@@ -8,7 +8,7 @@
                         <property name="OUT_ONLY" scope="default" type="STRING" value="true"/>
                         <property name="FORCE_SC_ACCEPTED" scope="axis2" type="STRING" value="true"/>
                         <send>
-                            <endpoint key="SrealitySingleMessagingEndpoint"/>
+                            <endpoint key="properties_aggregator_sreality_single_jms_endpoint"/>
                         </send>
                     </sequence>
                 </target>
