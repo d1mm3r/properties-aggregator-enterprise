@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<proxy name="properties_aggregator_sreality_single_jms_service" startOnLoad="true" transports="rabbitmq" xmlns="http://ws.apache.org/ns/synapse">
+<proxy name="properties_aggregator_sreality_single_jms_service" startOnLoad="true" transports="rabbitmq http https" xmlns="http://ws.apache.org/ns/synapse">
     <target>
         <inSequence>
             <property expression="$env/*[local-name()='Body']/*" name="url" scope="default" type="STRING"/>
@@ -32,6 +32,33 @@
                             <parameter expression="get-property('url')" type="VARCHAR"/>
                         </statement>
                     </dbreport>
+                    <payloadFactory media-type="json">
+                        <format>
+                            {
+                            	"channel": "C01224PS2CD",
+                            	"text": "$1"
+                            	
+                            }
+                        </format>
+                        <args>
+                            <arg evaluator="xml" expression="get-property('url')"/>
+                        </args>
+                    </payloadFactory>
+                    <header name="Authorization" scope="transport" value="Bearer xoxp-1077708184100-1084165759505-1056857110807-16fa2a4254558bd0f575ddfef6fb1110"/>
+                    <property name="HTTP_METHOD" scope="axis2" type="STRING" value="POST"/>
+                    <send>
+                        <endpoint>
+                            <address uri="https://slack.com/api/chat.postMessage">
+                                <suspendOnFailure>
+                                    <initialDuration>-1</initialDuration>
+                                    <progressionFactor>1</progressionFactor>
+                                </suspendOnFailure>
+                                <markForSuspension>
+                                    <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                                </markForSuspension>
+                            </address>
+                        </endpoint>
+                    </send>
                 </then>
                 <else/>
             </filter>

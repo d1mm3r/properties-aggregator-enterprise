@@ -17,4 +17,10 @@
     <artifact name="properties_aggregator_sreality_single_jms_service" groupId="com.sarsx.properties_aggregator_config.proxy-service" version="1.0.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
         <file>src/main/synapse-config/proxy-services/properties_aggregator_sreality_single_jms_service.xml</file>
     </artifact>
+    <artifact name="properties_aggregator_gmail_send_proxy" groupId="com.sarsx.properties_aggregator_config.proxy-service" version="1.0.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/proxy-services/properties_aggregator_gmail_send_proxy.xml</file>
+    </artifact>
+    <artifact name="properties_aggregator_slack_api" groupId="com.sarsx.properties_aggregator_config.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/properties_aggregator_slack_api.xml</file>
+    </artifact>
 </artifacts>
