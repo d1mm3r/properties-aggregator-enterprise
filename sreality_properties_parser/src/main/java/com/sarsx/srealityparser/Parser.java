@@ -3,6 +3,7 @@ package com.sarsx.srealityparser;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.html.DomAttr;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
@@ -33,6 +34,14 @@ public class Parser {
         return webClient;
     }
 
+    private void closeWebClient(WebClient webClient) {
+        List<WebWindow> windows = webClient.getWebWindows();
+        for (WebWindow window : windows) {
+            window.getJobManager().removeAllJobs();
+        }
+        webClient.close();
+    }
+
     public int getPropertyCount() {
         WebClient webClient = initializeClient();
         int propertyCount = 0;
@@ -47,7 +56,7 @@ public class Parser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        webClient.close();
+        closeWebClient(webClient);
         return propertyCount;
     }
 
@@ -71,7 +80,7 @@ public class Parser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        webClient.close();
+        closeWebClient(webClient);
         return urls;
     }
 }
