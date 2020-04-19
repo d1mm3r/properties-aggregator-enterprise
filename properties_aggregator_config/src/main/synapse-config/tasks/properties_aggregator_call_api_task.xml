@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<task class="org.apache.synapse.startup.tasks.MessageInjector" group="synapse.simple.quartz" name="properties_aggregator_call_api_task" xmlns="http://ws.apache.org/ns/synapse">
+    <trigger cron="0 */2 * ? * *"/>
+    <property name="injectTo" value="sequence" xmlns:task="http://www.wso2.org/products/wso2commons/tasks"/>
+    <property name="message" xmlns:task="http://www.wso2.org/products/wso2commons/tasks">
+        <response xmlns=""/>
+    </property>
+    <property name="sequenceName" value="properties_aggregator_call_api_sequence" xmlns:task="http://www.wso2.org/products/wso2commons/tasks"/>
+</task>

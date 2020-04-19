@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="properties_aggregator_delete_action_sequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <dbreport>
+        <connection>
+            <pool>
+                <dsName>jdbc/PropertyDatasource</dsName>
+            </pool>
+        </connection>
+        <statement>
+            <sql><![CDATA[DELETE FROM sreality]]></sql>
+        </statement>
+    </dbreport>
+</sequence>

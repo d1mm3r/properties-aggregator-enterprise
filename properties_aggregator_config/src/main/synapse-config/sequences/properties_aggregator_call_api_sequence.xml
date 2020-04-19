@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="properties_aggregator_call_api_sequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <send>
+        <endpoint>
+            <address uri="http://localhost:8280/api/properties">
+                <suspendOnFailure>
+                    <initialDuration>-1</initialDuration>
+                    <progressionFactor>1</progressionFactor>
+                </suspendOnFailure>
+                <markForSuspension>
+                    <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                </markForSuspension>
+            </address>
+        </endpoint>
+    </send>
+</sequence>
